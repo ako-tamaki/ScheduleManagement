@@ -2,6 +2,7 @@ package net.micode.schedulemanagement;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -68,6 +69,8 @@ public class RegisterActivity extends AppCompatActivity {
         long result = userDAO.insertUser(newUser);
         if (result != -1) {
             Toast.makeText(this, "注册成功", Toast.LENGTH_SHORT).show();
+            Log.d("ako","tamaki-ako remind:registered successful!!!");
+
             // 跳转到登录界面
             startActivity(new Intent(this, LoginActivity.class));
             finish();

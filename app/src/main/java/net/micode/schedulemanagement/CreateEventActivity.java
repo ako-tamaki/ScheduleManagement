@@ -155,6 +155,10 @@ public class CreateEventActivity extends AppCompatActivity {
             long result = eventDAO.insertEvent(event);
             if (result != -1) {
                 Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
+
+                Log.d("ako","tamaki-ako remind:save event successful!!!");
+
+
                 finish();
             } else {
                 Toast.makeText(this, "保存失败", Toast.LENGTH_SHORT).show();

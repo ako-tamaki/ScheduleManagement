@@ -2,6 +2,7 @@ package net.micode.schedulemanagement;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -84,6 +85,9 @@ public class LoginActivity extends AppCompatActivity {
     private void navigateToMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+        Log.d("ako","tamaki-ako remind:login successful!!!");
+
         startActivity(intent);
         finish();
     }
