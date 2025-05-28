@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -25,11 +26,17 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton btnCreateEvent;
     private MaterialCalendarView calendarView;
     private PreferenceManager preferenceManager;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // 找到 Toolbar 并设置为 Action Bar
+        // 确保 ID 匹配
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         preferenceManager = new PreferenceManager(this);
 

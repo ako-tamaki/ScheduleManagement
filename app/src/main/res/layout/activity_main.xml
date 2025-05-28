@@ -2,35 +2,54 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"> <!-- 添加 tools:context -->
 
-    <!-- 主内容区域：TabLayout + ViewPager2 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <!-- AppBarLayout 容器，用于 Toolbar 和 TabLayout -->
+<com.google.android.material.appbar.AppBarLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tabMode="fixed"/>
+<!-- Toolbar，将作为 Action Bar -->
+<androidx.appcompat.widget.Toolbar
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="?attr/colorPrimary"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+    android:theme="@style/ThemeOverlay.AppCompat.ActionBar"/> <!-- 设置 Toolbar 的主题 -->
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </LinearLayout>
+<!-- TabLayout 放在 Toolbar 下方 -->
+<com.google.android.material.tabs.TabLayout
+    android:id="@+id/tab_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:tabMode="fixed"
+    app:tabGravity="fill"/> <!-- 如果是 fixed 模式，可以设置 fill -->
+
+</com.google.android.material.appbar.AppBarLayout>
+
+    <!-- ViewPager2，放在 AppBarLayout 的下方 -->
+    <!-- 使用 layout_behavior 配合 CoordinatorLayout 和 AppBarLayout -->
+<androidx.viewpager2.widget.ViewPager2
+android:id="@+id/view_pager"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+app:layout_behavior="@string/appbar_scrolling_view_behavior"/> <!-- 这是关键 -->
 
     <!-- 创建事件的悬浮按钮 -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_create_event"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="24dp"
-        android:src="@drawable/ic_launcher_background"
-        app:layout_anchor="@id/view_pager"
-        app:layout_anchorGravity="bottom|end"/>
+    <!-- FAB 的 anchor 可以指向 ViewPager2，但它的位置是相对于 CoordinatorLayout 的 bottom|end -->
+    <!-- layout_anchor 更多用于滚动行为，对于固定位置的 FAB，简单的 layout_gravity 就够了 -->
+<com.google.android.material.floatingactionbutton.FloatingActionButton
+android:id="@+id/fab_create_event"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_gravity="bottom|end"
+    android:layout_margin="16dp"
+    app:srcCompat="@drawable/ic_launcher_background"/> <!-- 确保 drawable 存在 -->
+    <!-- app:layout_anchor="@id/view_pager" --> <!-- 如果不需要滚动联动行为，可以移除 anchor -->
+    <!-- app:layout_anchorGravity="bottom|end" -->
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
