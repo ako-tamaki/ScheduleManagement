@@ -1,3 +1,6 @@
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 plugins {
     alias(libs.plugins.android.application)
 }
@@ -28,6 +31,17 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+    }
+    // 修正 APK 文件名配置 (兼容 AGP 7.0+)
+    applicationVariants.all {
+        val variant = this
+        variant.outputs.forEach { output ->
+            // 使用新的 API 设置文件名
+            val outputImpl = output as com.android.build.gradle.internal.api.BaseVariantOutputImpl
+            val variantName = variant.name.replaceFirstChar { it.uppercase() }
+            val date = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+            outputImpl.outputFileName = "ScheduleManager-${variantName}-${date}.apk"
+        }
     }
 }
 
